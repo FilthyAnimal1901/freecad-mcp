@@ -279,10 +279,22 @@ except Exception:
     pass
 
 # ---------------------------------------------------------------------------
-# 7. FINAL RESULT
+# 7. EXPORT TO STEP (for Onshape import)
 # ---------------------------------------------------------------------------
 result = vessel
 
-# Display in CQ-Editor
-show_object(result, name="LUCKY_BANDIT_v4.3",
-            options={"color": "gray", "alpha": 0.85})
+import os
+_script_dir = os.path.dirname(os.path.abspath(__file__))
+_step_path = os.path.join(_script_dir, "lucky_bandit_v43.step")
+
+cq.exporters.export(result, _step_path)
+print(f"STEP file exported → {_step_path}")
+
+# ---------------------------------------------------------------------------
+# 8. DISPLAY IN CQ-EDITOR
+# ---------------------------------------------------------------------------
+try:
+    show_object(result, name="LUCKY_BANDIT_v4.3",
+                options={"color": "gray", "alpha": 0.85})
+except NameError:
+    pass  # show_object only available in CQ-Editor
